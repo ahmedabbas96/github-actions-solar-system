@@ -67,9 +67,9 @@ jobs:
 
     docker:
         name: Docker
+        needs: [unit-testing, code-coverage]
         permissions:
           packages: write
-
         runs-on: ubuntu-latest
         steps:
         - name: Checkout Repository
@@ -86,4 +86,4 @@ jobs:
           uses: docker/build-push-action@v7
           with:
             push: true
-            tags: solar-system:${{github.sha}}
+            tags: ${{env.REGISTRY}}/${{github.repository_owner}}/solar-system:${{ github.sha }}
